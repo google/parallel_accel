@@ -1,0 +1,34 @@
+body {
+    background-color: #040004;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.text-container {
+    font-size: 28px;
+    font-weight: 100;
+    font-family: Alien;
+    text-align: center;
+    text-decoration: none;
+}
+
+.text-container a {
+    text-decoration: none;
+    color: #00daff;
+}
+
+.logo {
+    color: #e83e8c;
+}
+
+@font-face {
+    font-family: Alien;
+    src: url("fonts/Alien-Encounters-Regular.ttf");
+}

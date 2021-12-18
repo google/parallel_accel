@@ -1,0 +1,2 @@
+aiounittest==1.4.0
+sanic-testing==0.3.0

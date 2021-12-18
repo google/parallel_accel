@@ -1,0 +1,60 @@
+# Copyright 2021 The ParallelAccel Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =============================================================================
+version: '3.4'
+services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 127.0.0.1:6379:6379
+    networks:
+      - working_area-network
+  working_area-api:
+    container_name: working_area-api
+    image: REDACTED
+    build:
+      context: .
+      dockerfile: ./ParAcc-Server/Dockerfile
+      target: working_area-api
+    links:
+      - redis
+    ports:
+      - 127.0.0.1:8080:8080
+    environment:
+      - EXTRA_ARGS=--debug --access-logs
+      - GKE_CLUSTER=working_area-dev
+      - REDISHOST=redis
+      - WORKERS=2
+      - DISABLE_GKE_ACCESS=1
+    networks:
+      - working_area-network
+  working_area-sim:
+    container_name: working_area-sim
+    image: REDACTED
+    build:
+      context: .
+      dockerfile: ./ParAcc-Simulator/Dockerfile
+      target: working_area-sim
+    links:
+      - redis
+    environment:
+      - API_KEY=local-test
+      - REDISHOST=redis
+      - XLA_FLAGS=--xla_force_host_platform_device_count=8
+    networks:
+      - working_area-network
+
+networks:
+  working_area-network:

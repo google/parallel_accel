@@ -1,0 +1,2 @@
+-e ../shared
+-e ../ParAcc-Simulator

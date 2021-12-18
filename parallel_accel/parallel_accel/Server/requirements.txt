@@ -1,0 +1,5 @@
+dependency-injector==4.20.2
+kubernetes==12.0.1
+google-auth==1.28.0
+google-cloud-container==2.3.1
+sanic==21.3.0
